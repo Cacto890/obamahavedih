@@ -43,3 +43,14 @@ body {
     align-items: center;
     box-shadow: 0 4px 24px rgba(0,0,0,0.2);
 }
+
+#clickMultiBtn {
+    background-color: #fae9c6;
+    color: #181818;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
