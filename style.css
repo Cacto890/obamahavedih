@@ -1,0 +1,45 @@
+body {
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbpsEdQ5saf9wBhX6fk9kyVZAsdxerPv0Tog&s);
+    color: #fae9c6;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.obamaClick {
+    background-color: #fae9c6;
+    color: #181818;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto; /* centers horizontally and adds some vertical spacing */
+}
+
+#upgradeBtn {
+    background-color: #fae9c6;
+    color: #181818;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto;
+}
+
+.score-container {
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 15px;
+    padding: 30px 40px;
+    margin: 30px auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+}

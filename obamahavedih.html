@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Obama Have Dih Clicker</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Obama Have Dih Clicker</h1>
+        </div>
+        <div class="content">
+            <div class="obama"></div>
+        </div>
+    </div>
+    <button class="obamaClick" id="obamaClick">Click me</button>
+    <div class="score-container">
+        <div class="obama"></div>
+        <div id="spsDisplay">Score per second: 0</div>
+        <div id="clickDisplay">Points per click: 1</div>
+        <div id="clickMultiDisplay">Click multiplier: x1</div>
+        <button id="clickMultiBtn">Upgrade Click Multiplier (x2) - Cost: 500</button>
+        <button id="upgradeBtn">Upgrade (+1 SPS) - Cost: 100</button>
+    </div>
+    <audio id="bg-music" src= "dih.mp3" autoplay loop></audio>
+    <script>
+        let obama = 0;
+        let obamaClick = document.getElementById("obamaClick");
+        let obamaCounter = document.querySelector(".obama");
+        let sps = 0;
+        let clickMultiplier = 1;
+        let clickMulti = 1;
+        let clickMultiCost = 500;
+        let clickMultiLevel = 1;
+        let upgradeCost = 100;
+        let upgradeLevel = 0;
+        let spsDisplay = document.getElementById("spsDisplay");
+        let clickDisplay = document.getElementById("clickDisplay");
+        let clickMultiDisplay = document.getElementById("clickMultiDisplay");
+        let clickMultiBtn = document.getElementById("clickMultiBtn");
+        let upgradeBtn = document.getElementById("upgradeBtn");
+
+        obamaClick.addEventListener("click", function() {
+            obama += clickMultiplier * clickMulti;
+            obamaCounter.innerHTML = obama;
+        });
+        // Update counter on load
+        obamaCounter.innerHTML = obama;
+
+        // Idle score increment
+        setInterval(function() {
+            obama += sps;
+            obamaCounter.innerHTML = obama;
+            updateUpgradeBtn();
+        }, 1000);
+
+        // Upgrade logic
+        upgradeBtn.addEventListener("click", function() {
+            if (obama >= upgradeCost) {
+                obama -= upgradeCost;
+                upgradeLevel++;
+                sps += upgradeLevel; // Each upgrade gives more SPS
+                clickMultiplier += upgradeLevel; // Each upgrade gives more points per click
+                upgradeCost = Math.floor(100 * Math.pow(1.5, upgradeLevel));
+                obamaCounter.innerHTML = obama;
+                spsDisplay.innerHTML = `Score per second: ${sps}`;
+                clickDisplay.innerHTML = `Points per click: ${clickMultiplier}`;
+                updateUpgradeBtn();
+            }
+        });
+
+        // Click multiplier upgrade logic
+        clickMultiBtn.addEventListener("click", function() {
+            if (obama >= clickMultiCost) {
+                obama -= clickMultiCost;
+                clickMulti *= 2;
+                clickMultiLevel++;
+                clickMultiCost = Math.floor(500 * Math.pow(2, clickMultiLevel - 1));
+                obamaCounter.innerHTML = obama;
+                updateUpgradeBtn();
+            }
+        });
+
+        function updateUpgradeBtn() {
+            upgradeBtn.innerHTML = `Upgrade (+${upgradeLevel + 1} SPS, +${upgradeLevel + 1} click) - Cost: ${upgradeCost}`;
+            spsDisplay.innerHTML = `Score per second: ${sps}`;
+            clickDisplay.innerHTML = `Points per click: ${clickMultiplier * clickMulti}`;
+            clickMultiDisplay.innerHTML = `Click multiplier: x${clickMulti}`;
+            clickMultiBtn.innerHTML = `Upgrade Click Multiplier (x${clickMulti * 2}) - Cost: ${clickMultiCost}`;
+            upgradeBtn.disabled = obama < upgradeCost;
+            clickMultiBtn.disabled = obama < clickMultiCost;
+        }
+        updateUpgradeBtn();
+
+        let bgMusic = document.getElementById('bg-music');
+        document.body.addEventListener('click', function() {
+            bgMusic.play();
+        }, { once: true });
+    </script>
+</body>
+</html>
